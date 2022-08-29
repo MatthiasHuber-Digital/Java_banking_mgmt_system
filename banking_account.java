@@ -1,22 +1,29 @@
 /* banking_account.java */
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Scanner;
 
 public class banking_account {
     int amount = 5000;
     public void initiate(){
-        login l1 = new login();
+        account_manager a_m = new account_manager();
         try{
-            l1.acceptInput();
-            l1.verify();
+            a_m.register_account();
         }
-        catch(Exception e)
-        {
+        catch(Exception register){
+            System.out.println("Error during the registration process. Aborting.");
+            System.exit(0);
+        }
+        
+        while (true){
             try{
-                l1.acceptInput();
-                l1.verify();
+                a_m.tryLogin();
+                a_m.verify();
+                break;
             }
-            catch(Exception f){
-                
+            catch(Exception e)
+            {
+                System.out.println("Error logging in: try again please.");
             }
         }
     }
